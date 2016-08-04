@@ -1,0 +1,29 @@
+_repo: The-Prehistoric-World--Or-Vanished-races_2873
+_version: 0.0.1
+creator:
+  author:
+    agent_name: Allen, Emory Adams
+    alias: Allen, E. A. (Emory Adams)
+    birthdate: 1853
+    gutenberg_agent_id: '1058'
+    url: http://www.gutenberg.org/2009/agents/1058
+description: ''
+gutenberg_bookshelf:
+- Anthropology
+- Native America
+gutenberg_issued: '2001-10-01'
+gutenberg_type: Text
+identifiers:
+  gutenberg: '2873'
+language: en
+publisher: Project Gutenberg
+rights: Public domain in the USA.
+rights_url: http://creativecommons.org/about/pdm
+subjects:
+- !lcsh 'Indians'
+- !lcc 'GN'
+- !lcsh 'Archaeology'
+- !lcsh 'Prehistoric peoples'
+- GITenberg
+title: The Prehistoric World; Or, Vanished Races
+url: http://www.gutenberg.org/ebooks/2873
