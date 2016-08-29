@@ -1,0 +1,61 @@
+sudo: required
+dist: trusty
+language: ruby
+
+before_install:
+before_install:
+- gem install asciidoctor -v 1.5.2
+- gem install tilt
+- sudo pip install git+https://github.com/gitenberg-dev/gitberg
+- sudo pip install pillow
+- sudo pip install cssutils
+- sudo pip install docutils
+- sudo pip install roman
+- sudo pip install git+https://github.com/gitenberg-dev/pg-epubmaker
+script:
+- VERSION=`ruby -e "require 'yaml'; meta = YAML.load_file('metadata.yaml'); puts meta['_version'];"`
+- git clone https://github.com/gitenberg-dev/asciidoctor-htmlbook.git
+- sudo pip install -r asciidoctor-htmlbook/gitberg-machine/requirements.txt
+
+- /usr/bin/python -c "from gitenberg import travis; travis.build_epub()"
+- ebook-convert book.epub book.mobi
+- xvfb-run ebook-convert book.epub book.pdf
+branches:
+  only:
+  - master
+notifications:
+  webhooks:
+    urls:
+      - https://unglue.it/api/travisci/webhook
+    on_success: always
+    on_failure: never
+    on_start: never
+deploy:
+  skip_cleanup: true
+  provider: releases
+  api_key:
+    secure: UnwHMsD8UN/cb427yDnmZSnjl/yio0oIf9GUSJsjXqSTCm28xEB2/H0qsXWFlOeTBJO6RS6gpbgIhWoI1BfBhJh2i34VkQhVsA9ccP1G+7mNGPF07s78/09EZ9Nrjzg/Q2FaV79XGh68flsVflnSq9EvcM3OTOeCKDKj+PNvEdco/TgSox8Ba1tGFpYeVnp60h4FrAb7fk4G9BGLipwPbSWiKVbYGuTSfsRC6gTQ9H4g789DJfuyBRL1wl6Vn1FaYvR/M3YJUVDWny/xHkPTaoP516XrIQgINYIi1zbn7j1G6sj19iK09x+5TPCw3Qfl2+Rt/9XXRrZzF8G2PkZ6r7SretyC1XWRqNSJlxmXRVfQ3yDYgeyBA1XxnNcrTDHFUQMrqtXHRINHJhW1ZzfdXcEoBOABsOrT+1wnn2e98EKD5I+K6gi3J97ivhRDI+D9hH6IIcm4fI5/H+v8jR77t4hG7dh/mbpsZtprNhYBgEvtrP5yyHwbZOF6VUWdPmauLSFqU35wFqzmn0NekUMhICYIf6lvTkH34w6mC8+6fVSk29K617iC7AJ/+4PuQ1qi0qb5DjE9NP5XCpgVZjhmxkGuuA3knsoWrIzg/SZeMLaUIFvW+TjOGdC7Fz7Ft1b2qBiIlD97OfC6YeznMVis31tI4aS+9hR1g+DFG7LQfWo=
+  file:
+    - book.epub
+    - book.mobi
+    - book.pdf
+  "on":
+    repo: GITenberg/The-Prehistoric-World--Or-Vanished-races_2873
+addons:
+  apt:
+    packages:
+    - xsltproc
+    - xvfb
+    - calibre
+    - python-pip
+    - git
+    - python-dev
+    - libjpeg-dev
+    - libpng-dev
+    - libfreetype6
+    - libfreetype6-dev
+    - zlib1g-dev
+    - python-lxml
+    - libxml2-dev
+    - libxslt1-dev
+    - tidy
